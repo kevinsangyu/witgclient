@@ -1,6 +1,6 @@
 # whereisthisguy
 
-A new Flutter project.
+This is a project that does what zen.ly used to do, which is location tracking of multiple users.
 
 ## Getting Started
 
