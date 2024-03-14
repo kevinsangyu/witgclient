@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -12,7 +13,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   void getData() async {
-    Response response = await get(Uri.parse('http://192.168.1.106:3000/map?group=1'));
+    final prefs = await SharedPreferences.getInstance();
+    Response response = await get(Uri.parse('http://192.168.1.106:3000/map?group=${prefs.getString('group')}'));
     Map data = jsonDecode(response.body);
     print(data.keys);
   }

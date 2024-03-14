@@ -22,10 +22,11 @@ class _SettingsState extends State<Settings> {
     final group = prefs.getString('group');
     final pwd = prefs.getString('pwd');
     final tracking = prefs.getBool('tracking');
+    print("-----------------------------------Settings loaded: $name, $group, $pwd");
     setState(() {
-      this.name = name ?? "";
-      this.group = group ?? "";
-      this.pwd = pwd ?? "";
+      this.name = name ?? "placerholder";
+      this.group = group ?? "placeholder";
+      this.pwd = pwd ?? "placeholder";
       this.tracking = tracking ?? false;
     });
   }
@@ -39,10 +40,10 @@ class _SettingsState extends State<Settings> {
 
   void _setSettings() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('name', name);
-    await prefs.setString('group', group);
-    await prefs.setString('pwd', pwd);
-    await prefs.setBool('tracking', tracking);
+    prefs.setString('name', name);
+    prefs.setString('group', group);
+    prefs.setString('pwd', pwd);
+    prefs.setBool('tracking', tracking);
   }
 
   @override
@@ -74,6 +75,7 @@ class _SettingsState extends State<Settings> {
                     return null;
                   },
                   onFieldSubmitted: (String? value) {
+                    print("-----------------------------------Name changed to: $value");
                     name = value!;
                   },
                 ),
@@ -93,6 +95,7 @@ class _SettingsState extends State<Settings> {
                     return null;
                   },
                   onFieldSubmitted: (String? value) {
+                    print("-----------------------------------Group changed to: $value");
                     group = value!;
                   },
                 ),
@@ -110,17 +113,17 @@ class _SettingsState extends State<Settings> {
                     return null;
                   },
                   onFieldSubmitted: (String? value) {
+                    print("-----------------------------------Pwd changed to: $value");
                     pwd = value!;
                   },
                 ),
               ),
               TextButton(onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  setState(() {_setSettings();_getSettings();});
+                  setState(() {_setSettings();});
                 }
               },
                   child: const Text("Save")),
-              Text("Name: $name, Group: $group, pwd: $pwd")
             ],
           )
         ),
