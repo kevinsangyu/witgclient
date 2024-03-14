@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'dart:convert';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -9,9 +11,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  String name = "Kevin";
-  String group = "Group1";
-
+  void getData() async {
+    Response response = await get(Uri.parse('http://192.168.1.106:3000/map?group=1'));
+    Map data = jsonDecode(response.body);
+    print(data.keys);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +41,7 @@ class _HomeState extends State<Home> {
             )
           ]
       ),
-      body: Center(child: Text('This is the body, where the map will reside\nlogged in as $name, in group $group')),
+      body: const Center(child: Text('This is the body, where the map will reside')),
     );
   }
 }
